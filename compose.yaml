@@ -1,0 +1,21 @@
+services:
+  mysql:
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=app
+      - MYSQL_USER=app
+      - MYSQL_PASSWORD=app
+    ports:
+      - 3306:3306
+    volumes:
+      - type: volume
+        source: data
+        target: /var/lib/mysql
+        consistency: 10Gi
+      - type: bind
+        source: ./table/
+        target: /docker-entrypoint-initdb.d/
+
+volumes:
+  data:
